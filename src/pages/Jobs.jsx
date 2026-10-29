@@ -1,8 +1,8 @@
 import React from 'react'
-import { useSearchParams } from 'react-router-dom';
-import jobs from '../data/Jobs'
+import { useSearchParams, Link } from 'react-router-dom';
+// import jobs from '../data/Jobs'
 import JobCard from '../components/JobCard';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 
 
 function Jobs() {
@@ -17,6 +17,15 @@ const initialSearch = searchParams.get("search") || "";
     const [location, setLocation] = useState("");
     
     const [jobType, setJobType] = useState("");
+
+    const [jobs, setJobs] = useState([]);
+    useEffect(() => {
+  fetch("http://127.0.0.1:8000/api/jobs/")
+    .then((response) => response.json())
+    .then((data) => {
+      setJobs(data);
+    });
+}, []);
 const filteredJobs = jobs.filter((job) =>
   job.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
   (location === "" || job.location === location) &&

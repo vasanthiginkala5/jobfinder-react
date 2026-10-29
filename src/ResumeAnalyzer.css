@@ -1,0 +1,154 @@
+
+.resume-page {
+  max-width: 850px;
+  margin: 35px auto;
+  padding: 20px;
+  color: #1f2937;
+}
+
+.resume-card,
+.results-card {
+  background: white;
+  padding: 28px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+}
+
+.resume-card h1,
+.results-card h2 {
+  margin-top: 0;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 28px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.form-group small,
+.file-name {
+  color: #6b7280;
+}
+
+.analyze-button {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.analyze-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #b91c1c;
+  margin-bottom: 0;
+}
+
+.score-section {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.score-section h3 {
+  font-size: 42px;
+  color: #2563eb;
+  margin: 0;
+}
+
+.score-section p {
+  color: #6b7280;
+}
+
+.progress-track {
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+  max-width: 450px;
+  margin: 20px auto;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 20px;
+  transition: width 0.4s ease;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.skill-card,
+.suggestion-card {
+  padding: 18px;
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+
+.skill-card h3,
+.suggestion-card h3 {
+  margin-top: 0;
+}
+
+.matched-card {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+}
+
+.missing-card {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+.suggestion-card {
+  background: #eff6ff;
+  margin-top: 16px;
+}
+
+@media (max-width: 600px) {
+  .resume-page {
+    margin: 15px auto;
+    padding: 12px;
+  }
+
+  .resume-card,
+  .results-card {
+    padding: 20px;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}

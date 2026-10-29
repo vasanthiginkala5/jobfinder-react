@@ -1,0 +1,116 @@
+Python is a programming language used for web development, automation, data analysis, and AI.
+
+Django is a Python web framework used to build web applications. It follows the Model-View-Template (MVT) architecture.
+
+FastAPI is a Python framework used to build fast REST APIs. It supports automatic API documentation.
+
+React is a JavaScript library used to build interactive user interfaces.
+
+SQL is used to store, retrieve, and manage data in relational databases. MySQL is a popular relational database.
+
+REST APIs allow applications to communicate using HTTP methods such as GET, POST, PUT, and DELETE.
+
+A fresher software developer should learn Python, OOP, SQL, data structures, problem-solving, Git, REST APIs, and basic testing.
+
+A RAG system retrieves relevant information from a knowledge source and uses that information to answer user questions.
+
+Resume tip: Use clear project descriptions, list relevant technical skills, and explain your contributions honestly.
+
+Interview tip: Prepare your introduction, projects, Python fundamentals, SQL queries, OOP concepts, and questions related to the job description.
+
+Python Fundamentals for Freshers
+
+Important Python concepts include variables, data types, operators, conditional statements, loops, functions, lists, tuples, sets, dictionaries, strings, exception handling, file handling, and modules.
+
+Object-Oriented Programming in Python
+
+Learn classes, objects, constructors, inheritance, encapsulation, polymorphism, and abstraction.
+
+Python Interview Preparation
+
+Practice writing programs for palindrome checking, reversing a string, finding the largest number, counting character frequencies, removing duplicates from a list, and sorting an array.
+
+Technical Interview Preparation for Freshers
+
+Prepare a self-introduction, explain your projects, revise Python fundamentals, practice SQL queries, understand OOP concepts, and review questions related to the job description.
+
+
+Python Variables and Data Types
+
+A variable stores a value in Python. Common data types include int, float, str, bool, list, tuple, set, and dict.
+
+Python Loops
+
+Python supports for loops and while loops. A for loop iterates over items in a sequence, while a while loop repeats as long as a condition is true.
+
+Python Functions
+
+A function is a reusable block of code defined using the def keyword. Functions can accept parameters and return values.
+
+Python Exception Handling
+
+Python uses try, except, else, and finally to handle exceptions and prevent unexpected errors from stopping a program.
+
+Python OOP
+
+A class defines the structure of objects. An object is an instance of a class. Inheritance allows a class to reuse features of another class. Encapsulation groups data and methods, while polymorphism allows a common interface to have different implementations.
+
+Python OOP Concepts with Examples
+
+A class is a blueprint for creating objects. An object is an instance of a class.
+
+Example:
+class Student:
+    def __init__(self, name):
+        self.name = name
+
+student = Student("Vasanthi")
+print(student.name)
+
+Output: Vasanthi
+
+1. Encapsulation
+Encapsulation combines data and methods inside a class and controls access to internal data.
+
+2. Inheritance
+Inheritance allows one class to reuse properties and methods from another class.
+
+Example:
+class Animal:
+    def speak(self):
+        print("Animal makes a sound")
+
+class Dog(Animal):
+    pass
+
+dog = Dog()
+dog.speak()
+
+Output: Animal makes a sound
+
+3. Polymorphism
+Polymorphism allows different classes to use the same method name with different behaviors.
+
+4. Abstraction
+Abstraction hides implementation details and exposes only the necessary functionality.
+
+5. Constructor
+The __init__ method initializes an object when it is created.
+
+Python Collections: List, Tuple, Set, and Dictionary
+
+List:
+A list is an ordered, mutable collection that allows duplicate values.
+Example: numbers = [10, 20, 20, 30]
+
+Tuple:
+A tuple is an ordered, immutable collection that allows duplicate values.
+Example: numbers = (10, 20, 20, 30)
+
+Set:
+A set stores unique values and does not guarantee a fixed order.
+Example: numbers = {10, 20, 30}
+
+Dictionary:
+A dictionary stores data as key-value pairs.
+Example: student = {"name": "Vasanthi", "age": 22}

@@ -8,6 +8,10 @@ import Application from './pages/Application';
 import Applications from "./pages/Applications";
 import SavedJobs from './pages/SavedJobs';
 import Profile from './pages/Profile';
+import Login from "./pages/Login";
+import CareerAssistant from "./CareerAssistant";
+import ResumeAnalyzer from "./ResumeAnalyzer";
+import ProtectedRoute from "./ProtectedRoute";
 
 const App = () => {
   return (
@@ -23,14 +27,44 @@ const App = () => {
 
     <Route path="/applications/apply" element={<Application/>}/>
 
-    <Route path="/applications" element={<Applications/>} />
+    <Route
+  path="/applications"
+  element={
+    <ProtectedRoute>
+      <Applications />
+    </ProtectedRoute>
+  }
+/>
 
-    <Route path="/saved" element={<SavedJobs/>}/>
-     
-    <Route path="/saved" element={<SavedJobs />} />
+<Route
+  path="/saved"
+  element={
+    <ProtectedRoute>
+      <SavedJobs />
+    </ProtectedRoute>
+  }
+/>
 
-    <Route path="/profile" element={<Profile />} />
+<Route
+  path="/profile"
+  element={
+    <ProtectedRoute>
+      <Profile />
+    </ProtectedRoute>
+  }
+/>
 
+    <Route path="/login" element={<Login />} />
+
+    <Route
+  path="/career-assistant"
+  element={<CareerAssistant />}
+/>
+
+    <Route
+  path="/resume-analyzer"
+  element={<ResumeAnalyzer />}
+/>
   </Routes>
 
   </BrowserRouter>

@@ -7,19 +7,62 @@ const [email, setEmail] = useState("");
 const [skills, setSkills] = useState("");
 
 const [saved, setSaved] = useState(false);
+const [profileId, setProfileId] = useState(null);
 
 useEffect(() => {
-  const savedProfile = localStorage.getItem("profile");
+  fetch("http://localhost:8000/api/profiles/", {
+    credentials: "include"
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to load profile");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data.length > 0) {
+        const profile = data[0];
 
-  if (savedProfile) {
-    const profile = JSON.parse(savedProfile);
-
-    setName(profile.name);
-    setEmail(profile.email);
-    setSkills(profile.skills);
-  }
+        setProfileId(profile.id);
+        setName(profile.name);
+        setEmail(profile.email);
+        setSkills(profile.skills);
+      }
+    })
+    .catch((error) => {
+      console.log("Profile loading error:", error);
+    });
 }, []);
+// useEffect(() => {
+//   const savedProfile = localStorage.getItem("profile");
 
+//   if (savedProfile) {
+//     const profile = JSON.parse(savedProfile);
+
+//     setName(profile.name);
+//     setEmail(profile.email);
+//     setSkills(profile.skills);
+//   }
+// }, []);
+
+// const handleSubmit = (e) => {
+//   e.preventDefault();
+
+//   const profile = {
+//     name: name,
+//     email: email,
+//     skills: skills
+//   };
+
+//   localStorage.setItem(
+//     "profile",
+//     JSON.stringify(profile)
+//   );
+
+//   console.log("Profile saved:", profile);
+
+//   setSaved(true);
+// };
 const handleSubmit = (e) => {
   e.preventDefault();
 
@@ -29,16 +72,43 @@ const handleSubmit = (e) => {
     skills: skills
   };
 
-  localStorage.setItem(
-    "profile",
-    JSON.stringify(profile)
-  );
+  fetch("http://localhost:8000/api/csrf/", {
+    credentials: "include"
+  })
+    .then((response) => response.json())
+    .then((csrfData) => {
+      return fetch(
+        profileId
+          ? `http://localhost:8000/api/profiles/${profileId}/`
+          : "http://localhost:8000/api/profiles/",
+        {
+          method: profileId ? "PUT" : "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfData.csrfToken
+          },
+          body: JSON.stringify(profile)
+        }
+      );
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to save profile");
+      }
 
-  console.log("Profile saved:", profile);
-
-  setSaved(true);
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Profile saved:", data);
+      setProfileId(data.id);
+      setSaved(true);
+    })
+    .catch((error) => {
+      console.log("Profile save error:", error);
+      setSaved(false);
+    });
 };
-
   return (
   <main className="profile-page">
     <h1>My Profile</h1>

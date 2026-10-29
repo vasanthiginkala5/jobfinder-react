@@ -1,9 +1,10 @@
 import React from 'react'
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useSearchParams} from "react-router-dom";
-import Jobs from '../data/Jobs';
+// import Jobs from '../data/Jobs';
 
 const Application = () => {
+  const [csrfToken, setCsrfToken] = useState("");
     const [name,setName]=useState("");
     const [email,setEmail]=useState("");
     const [reason,setReason]=useState("");
@@ -11,42 +12,99 @@ const Application = () => {
 
     const [searchParams] = useSearchParams();
     const jobId = searchParams.get("job");
+    const [job, setJob] = useState(null);
+    useEffect(() => {
+  fetch("http://localhost:8000/api/csrf/", {
+    credentials: "include"
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      setCsrfToken(data.csrfToken);
+    })
+    .catch((error) => {
+      console.log("CSRF error:", error);
+    });
+}, []);
 
+    useEffect(() => {
+  fetch(`http://localhost:8000/api/jobs/${jobId}/`)
+    .then((response) => response.json())
+    .then((data) => {
+      setJob(data);
+    });
+}, [jobId]);
     console.log("Job ID:",jobId)
-    const job = Jobs.find((job) => job.id === Number(jobId));
+    // const job = Jobs.find((job) => job.id === Number(jobId));
     
 
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-
-        console.log("Name:",name);
-        console.log("Email:",email);
-        console.log("Reason:",reason);
-
-  const application = {
-  jobId: job.id,
-  jobTitle: job.title,
-  company: job.company,
+        console.log("Submit button clicked");
+        const application = {
+  job: job.id,
   name: name,
   email: email,
-  reason: reason,
-//   status: "Applied"
-   status:"under Review"
+  reason: reason
 };
 
+fetch("http://localhost:8000/api/applications/", {
+  method: "POST",
+  credentials: "include",
+  headers: { 
+  "Content-Type": "application/json",
+  "X-CSRFToken": csrfToken
+},
+  body: JSON.stringify(application)
+})
+  .then((response) => {
+  console.log("POST status:", response.status);
 
-const existingApplications =
-  JSON.parse(localStorage.getItem("applications")) || [];
+  if (!response.ok) {
+    throw new Error("Application was not created");
+  }
 
-existingApplications.push(application);
+  return response.json();
+})
+  .then((data) => {
+    console.log("POST response:", data);
+    setSubmitted(true);
+  })
+  .catch((error) => {
+    console.log("POST error:", error);
+  });
 
-localStorage.setItem(
-  "applications",
-  JSON.stringify(existingApplications)
-);
+        // console.log("Name:",name);
+        // console.log("Email:",email);
+        // console.log("Reason:",reason);
+
+//   const application = {
+//   jobId: job.id,
+//   jobTitle: job.title,
+//   company: job.company,
+//   name: name,
+//   email: email,
+//   reason: reason,
+// //   status: "Applied"
+//    status:"under Review"
+// };
+
+
+// const existingApplications =
+//   JSON.parse(localStorage.getItem("applications")) || [];
+
+// existingApplications.push(application);
+
+// localStorage.setItem(
+//   "applications",
+//   JSON.stringify(existingApplications)
+// );
         setSubmitted(true);
     };
+
+    if (!job) {
+  return <p>Loading job details...</p>;
+}
 
   return (
    <main className='application-page'>

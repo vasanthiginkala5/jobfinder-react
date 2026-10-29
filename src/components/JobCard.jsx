@@ -1,66 +1,123 @@
-import React from 'react'
-import {Link} from "react-router-dom";
-import { useState ,useEffect} from "react";
-const JobCard = ({job, onRemove}) => {
+
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
+const JobCard = ({ job, onRemove, savedJobId }) => {
   const [isSaved, setIsSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-  const savedJobs =
-    JSON.parse(localStorage.getItem("savedJobs")) || [];
+    let cancelled = false;
 
-  const alreadySaved = savedJobs.some(
-    (savedJob) => savedJob.id === job.id
-  );
+    const fetchSavedJobs = async () => {
+      try {
+        // Don't fetch saved jobs when logged out
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+          setIsSaved(false);
+          return;
+        }
 
-  setIsSaved(alreadySaved);
-}, [job.id]);
+        const response = await fetch(
+          "http://localhost:8000/api/saved-jobs/",
+          { credentials: "include" }
+        );
 
-const toggleSave = () => {
-  const savedJobs =
-    JSON.parse(localStorage.getItem("savedJobs")) || [];
+        if (!response.ok) {
+          throw new Error("Failed to fetch saved jobs");
+        }
 
-  if (isSaved) {
-    const updatedJobs = savedJobs.filter(
-      (savedJob) => savedJob.id !== job.id
-    );
+        const data = await response.json();
 
-    localStorage.setItem(
-      "savedJobs",
-      JSON.stringify(updatedJobs)
-    );
+        if (!cancelled) {
+          const alreadySaved = data.some(
+            (savedJob) => savedJob.job === job.id
+          );
+          setIsSaved(alreadySaved);
+        }
+      } catch (error) {
+        console.log("Fetch saved jobs error:", error);
+      }
+    };
 
-    setIsSaved(false);
-  } else {
-    savedJobs.push(job);
+    fetchSavedJobs();
 
-    localStorage.setItem(
-      "savedJobs",
-      JSON.stringify(savedJobs)
-    );
+    return () => {
+      cancelled = true;
+    };
+  }, [job.id]);
 
-    setIsSaved(true);
-  }
-};
+  const toggleSave = async () => {
+    if (isSaved || saving) {
+      return;
+    }
+
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "/login";
+      return;
+    }
+
+    setSaving(true);
+
+    try {
+      const csrfResponse = await fetch(
+        "http://localhost:8000/api/csrf/",
+        { credentials: "include" }
+      );
+
+      if (!csrfResponse.ok) {
+        throw new Error("Failed to get CSRF token");
+      }
+
+      const csrfData = await csrfResponse.json();
+
+      const response = await fetch(
+        "http://localhost:8000/api/saved-jobs/",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfData.csrfToken
+          },
+          body: JSON.stringify({ job: job.id })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to save job");
+      }
+
+      const data = await response.json();
+      console.log("Job saved:", data);
+      setIsSaved(true);
+    } catch (error) {
+      console.log("Save error:", error);
+    } finally {
+      setSaving(false);
+    }
+  };
 
   return (
     <div className="job-card">
-        <h3>{job.title}</h3>
-        <p>{job.company}</p>
-        <p>{job.location}</p>
-        <p>{job.type}</p>
-        <p>{job.salary}</p>
-        <Link to={`/jobs/${job.id}`}>View Details</Link>
-        <button onClick={toggleSave}>
-  {isSaved ? "Saved" : "Save Job"}
+      <h3>{job.title}</h3>
+      <p>{job.company}</p>
+      <p>{job.location}</p>
+      <p>{job.type}</p>
+      <p>{job.salary}</p>
 
-  {onRemove && (
-  <button onClick={() => onRemove(job.id)}>
-    Remove Saved Job
-  </button>
-)}
-</button>
+      <Link to={`/jobs/${job.id}`}>View Details</Link>
+
+      <button onClick={toggleSave} disabled={isSaved || saving}>
+        {saving ? "Saving..." : isSaved ? "Saved" : "Save Job"}
+      </button>
+
+      {onRemove && (
+        <button onClick={() => onRemove(savedJobId)}>
+          Remove Saved Job
+        </button>
+      )}
     </div>
   );
-}
+};
 
 export default JobCard;
