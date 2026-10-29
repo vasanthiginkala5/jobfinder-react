@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams} from 'react-router-dom';
 // import jobs from '../data/Jobs'
 import JobCard from '../components/JobCard';
 import {useState,useEffect} from 'react';
