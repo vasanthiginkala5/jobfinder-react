@@ -20,7 +20,7 @@ const initialSearch = searchParams.get("search") || "";
 
     const [jobs, setJobs] = useState([]);
     useEffect(() => {
-  fetch("http://127.0.0.1:8000/api/jobs/")
+fetch("https://jobfinder-react.onrender.com/api/jobs/")
     .then((response) => response.json())
     .then((data) => {
       setJobs(data);

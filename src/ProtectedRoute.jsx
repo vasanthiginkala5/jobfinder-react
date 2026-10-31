@@ -9,7 +9,7 @@ function ProtectedRoute({ children }) {
     const checkLogin = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/current-user/",
+          "https://jobfinder-react.onrender.com/api/current-user/",
           {
             credentials: "include"
           }

@@ -8,7 +8,7 @@ function JobDetails(){
 
        const [job, setJob] = useState(null);
         useEffect(() => {
-  fetch("http://localhost:8000/api/csrf/", {
+  fetch("https://jobfinder-react.onrender.com/api/csrf/", {
     credentials: "include"
   })
     .then((response) => response.json())
@@ -20,7 +20,7 @@ function JobDetails(){
     });
 }, []);
        useEffect(() => {
-  fetch(`http://127.0.0.1:8000/api/jobs/${id}/`)
+  fetch(`https://jobfinder-react.onrender.com/api/jobs/${id}/`)
     .then((response) => response.json())
     .then((data) => {
       setJob(data);
@@ -30,7 +30,7 @@ if (!job) {
   return <p>Loading job details...</p>;
 }
 const saveJob = () => {
-  fetch("http://localhost:8000/api/saved-jobs/", {
+  fetch("https://jobfinder-react.onrender.com/api/saved-jobs/", {
     method: "POST",
     credentials: "include",
     headers: {

@@ -545,7 +545,7 @@ function Login() {
     try {
       // Get CSRF token
       const csrfResponse = await fetch(
-        "http://localhost:8000/api/csrf/",
+        "https://jobfinder-react.onrender.com/api/csrf/",
         { credentials: "include" }
       );
 
@@ -557,7 +557,7 @@ function Login() {
 
       // Send login request
       const response = await fetch(
-        "http://localhost:8000/api/login/",
+        "https://jobfinder-react.onrender.com/api/login/",
         {
           method: "POST",
           credentials: "include",
@@ -603,7 +603,7 @@ function Login() {
   const checkLogin = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/current-user/",
+        "https://jobfinder-react.onrender.com/api/current-user/",
         { credentials: "include" }
       );
 
@@ -636,7 +636,7 @@ function Login() {
     try {
       // Get CSRF token
       const csrfResponse = await fetch(
-        "http://localhost:8000/api/csrf/",
+       "https://jobfinder-react.onrender.com/api/csrf/",
         { credentials: "include" }
       );
 
@@ -648,7 +648,7 @@ function Login() {
 
       // Send logout request
       const response = await fetch(
-        "http://localhost:8000/api/logout/",
+        "https://jobfinder-react.onrender.com/api/logout/",
         {
           method: "POST",
           credentials: "include",

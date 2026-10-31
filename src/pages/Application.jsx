@@ -14,7 +14,7 @@ const Application = () => {
     const jobId = searchParams.get("job");
     const [job, setJob] = useState(null);
     useEffect(() => {
-  fetch("http://localhost:8000/api/csrf/", {
+  fetch("https://jobfinder-react.onrender.com/api/csrf/", {
     credentials: "include"
   })
     .then((response) => response.json())
@@ -27,7 +27,7 @@ const Application = () => {
 }, []);
 
     useEffect(() => {
-  fetch(`http://localhost:8000/api/jobs/${jobId}/`)
+  fetch(`https://jobfinder-react.onrender.com/api/jobs/${jobId}/`)
     .then((response) => response.json())
     .then((data) => {
       setJob(data);
@@ -48,7 +48,7 @@ const Application = () => {
   reason: reason
 };
 
-fetch("http://localhost:8000/api/applications/", {
+fetch("https://jobfinder-react.onrender.com/api/applications/", {
   method: "POST",
   credentials: "include",
   headers: { 
@@ -66,13 +66,15 @@ fetch("http://localhost:8000/api/applications/", {
 
   return response.json();
 })
-  .then((data) => {
-    console.log("POST response:", data);
-    setSubmitted(true);
-  })
+  // .then((data) => {
+  //   console.log("POST response:", data);
+  //   setSubmitted(true);
+  // })
   .catch((error) => {
     console.log("POST error:", error);
   });
+     setSubmitted(true);
+    };
 
         // console.log("Name:",name);
         // console.log("Email:",email);
@@ -99,8 +101,8 @@ fetch("http://localhost:8000/api/applications/", {
 //   "applications",
 //   JSON.stringify(existingApplications)
 // );
-        setSubmitted(true);
-    };
+    //     setSubmitted(true);
+    // };
 
     if (!job) {
   return <p>Loading job details...</p>;

@@ -18,7 +18,7 @@ const JobCard = ({ job, onRemove, savedJobId }) => {
         }
 
         const response = await fetch(
-          "http://localhost:8000/api/saved-jobs/",
+          "https://jobfinder-react.onrender.com/api/saved-jobs/",
           { credentials: "include" }
         );
 
@@ -60,7 +60,7 @@ const JobCard = ({ job, onRemove, savedJobId }) => {
 
     try {
       const csrfResponse = await fetch(
-        "http://localhost:8000/api/csrf/",
+        "https://jobfinder-react.onrender.com/api/csrf/",
         { credentials: "include" }
       );
 
@@ -71,7 +71,7 @@ const JobCard = ({ job, onRemove, savedJobId }) => {
       const csrfData = await csrfResponse.json();
 
       const response = await fetch(
-        "http://localhost:8000/api/saved-jobs/",
+"https://jobfinder-react.onrender.com/api/saved-jobs/",
         {
           method: "POST",
           credentials: "include",

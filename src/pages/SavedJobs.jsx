@@ -6,7 +6,7 @@ function SavedJobs() {
   const [csrfToken, setCsrfToken] = useState(""); 
 
   useEffect(() => {
-  fetch("http://localhost:8000/api/csrf/", {
+fetch("https://jobfinder-react.onrender.com/api/csrf/", {
     credentials: "include"
   })
     .then((response) => response.json())
@@ -18,7 +18,7 @@ function SavedJobs() {
     });
 }, []);
 useEffect(() => {
-  fetch("http://localhost:8000/api/saved-jobs/", {
+fetch("https://jobfinder-react.onrender.com/api/saved-jobs/", {
   credentials: "include"
 })
     .then((response) => response.json())
@@ -27,7 +27,7 @@ useEffect(() => {
 
   Promise.all(
     data.map((savedJob) =>
-      fetch(`http://127.0.0.1:8000/api/jobs/${savedJob.job}/`)
+fetch(`https://jobfinder-react.onrender.com/api/jobs/${savedJob.job}/`)
         .then((response) => response.json())
         .then((job) => ({
           ...job,
@@ -61,7 +61,7 @@ useEffect(() => {
 //   );
 // };
 const removeSavedJob = (savedJobId) => {
-  fetch(`http://localhost:8000/api/saved-jobs/${savedJobId}/`, {
+fetch(`https://jobfinder-react.onrender.com/api/saved-jobs/${savedJobId}/`, {
     method: "DELETE",
     credentials: "include",
     headers: {

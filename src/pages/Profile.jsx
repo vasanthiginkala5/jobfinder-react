@@ -10,7 +10,7 @@ const [saved, setSaved] = useState(false);
 const [profileId, setProfileId] = useState(null);
 
 useEffect(() => {
-  fetch("http://localhost:8000/api/profiles/", {
+  fetch("https://jobfinder-react.onrender.com/api/profiles/", {
     credentials: "include"
   })
     .then((response) => {
@@ -72,15 +72,15 @@ const handleSubmit = (e) => {
     skills: skills
   };
 
-  fetch("http://localhost:8000/api/csrf/", {
+  fetch("https://jobfinder-react.onrender.com/api/csrf/", {
     credentials: "include"
   })
     .then((response) => response.json())
     .then((csrfData) => {
       return fetch(
         profileId
-          ? `http://localhost:8000/api/profiles/${profileId}/`
-          : "http://localhost:8000/api/profiles/",
+? `https://jobfinder-react.onrender.com/api/profiles/${profileId}/`
+: "https://jobfinder-react.onrender.com/api/profiles/",
         {
           method: profileId ? "PUT" : "POST",
           credentials: "include",

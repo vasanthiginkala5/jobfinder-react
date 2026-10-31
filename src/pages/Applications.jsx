@@ -6,7 +6,7 @@ function Applications()
   const [applications, setApplications] = useState([]);
   const [csrfToken, setCsrfToken] = useState("");
   useEffect(() => {
-  fetch("http://localhost:8000/api/csrf/", {
+  fetch("https://jobfinder-react.onrender.com/api/csrf/", {
     credentials: "include"
   })
     .then((response) => response.json())
@@ -20,7 +20,7 @@ function Applications()
   useEffect(() => {
   console.log("Fetching applications...");
 
-  fetch("http://localhost:8000/api/applications/", {
+  fetch("https://jobfinder-react.onrender.com/api/applications/", {
     credentials: "include"
   })
     .then((response) => {
@@ -37,7 +37,7 @@ function Applications()
 }, []);
 
   const removeApplication = (id) => {
-  fetch(`http://localhost:8000/api/applications/${id}/`, {
+  fetch(`https://jobfinder-react.onrender.com/api/applications/${id}/`, {
   method: "DELETE",
   credentials: "include",
   headers: {
