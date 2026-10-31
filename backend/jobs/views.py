@@ -63,6 +63,7 @@ class SavedJobListCreateView(generics.ListCreateAPIView):
 
 class SavedJobDeleteView(generics.DestroyAPIView):
     serializer_class = SavedJobSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return SavedJob.objects.filter(user=self.request.user)

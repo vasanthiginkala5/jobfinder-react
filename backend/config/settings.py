@@ -28,9 +28,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# DEBUG = True
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -81,11 +80,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv("DB_NAME", "job_finder"),
-        "USER": os.getenv("DB_USER", "root"),
+        "NAME": "defaultdb",
+        "USER": "avnadmin",
         "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST", "localhost"),
-        "PORT": os.getenv("DB_PORT", "3306"),
+        "HOST": "mysql-155c862-vasanthiginkala-33ee.e.aivencloud.com",
+        "PORT": "25727",
+        "OPTIONS": {
+            "ssl": {
+                "ca": str(BASE_DIR.parent / "certs" / "ca.pem")
+            }
+        },
     }
 }
     
