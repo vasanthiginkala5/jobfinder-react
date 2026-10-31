@@ -108,8 +108,14 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    checkCurrentUser();
-  }, []);
+  checkCurrentUser();
+
+  window.addEventListener("auth-change", checkCurrentUser);
+
+  return () => {
+    window.removeEventListener("auth-change", checkCurrentUser);
+  };
+}, []);
 
   const handleLogout = async () => {
     try {

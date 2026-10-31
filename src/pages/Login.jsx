@@ -586,7 +586,7 @@ function Login() {
         setLoggedInUser(data.username);
         setLoginStatus("Logged in successfully");
         setMessage("Login successful");
-
+        window.dispatchEvent(new Event("auth-change"));
         navigate("/jobs", { replace: true });
       } else {
         setMessage("Login response did not contain a username.");
