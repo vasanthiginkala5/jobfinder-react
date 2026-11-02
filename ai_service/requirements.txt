@@ -2,8 +2,7 @@ fastapi
 uvicorn[standard]
 python-multipart
 pypdf
-sentence-transformers
-faiss-cpu
+scikit-learn
 numpy
 python-dotenv
 google-genai
